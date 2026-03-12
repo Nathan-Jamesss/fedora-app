@@ -6,7 +6,6 @@ function Navbar() {
     return (
         <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, padding: '0 32px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(7,15,10,0.92)', backdropFilter: 'blur(14px)', borderBottom: '1px solid rgba(74,222,128,0.1)' }}>
             <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-                <div style={{ width: 32, height: 32, borderRadius: 8, background: 'linear-gradient(135deg,#22c55e,#16a34a)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Leaf size={16} color="#052e16" /></div>
                 <span style={{ fontSize: 18, fontWeight: 800, background: 'linear-gradient(90deg,#86efac,#4ade80)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>FEDORA</span>
             </Link>
             <div style={{ display: 'flex', gap: 6 }}>
@@ -78,7 +77,7 @@ export default function DashboardPage() {
                     <div>
                         <div className="badge" style={{ marginBottom: 10, display: 'inline-flex' }}><BarChart3 size={11} /> Dashboard</div>
                         <h1 style={{ fontSize: 'clamp(24px,3vw,36px)', fontWeight: 800, color: '#e2fdf0' }}>Carbon Overview</h1>
-                        <p style={{ color: 'rgba(134,239,172,0.5)', fontSize: 14, marginTop: 4 }}>Nguyen Steel Co. · Ho Chi Minh City · Jan 2026</p>
+                        <p style={{ color: 'rgba(134,239,172,0.5)', fontSize: 14, marginTop: 4 }}>PT PLN (Persero) · Jakarta, Indonesia · Jan 2026</p>
                     </div>
                     <Link href="/upload" style={{ padding: '12px 24px', background: 'linear-gradient(135deg,#22c55e,#16a34a)', color: '#052e16', borderRadius: 999, fontWeight: 700, fontSize: 14, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 6 }}>
                         <Upload size={14} /> Upload New Bill

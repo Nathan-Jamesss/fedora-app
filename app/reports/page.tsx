@@ -2,12 +2,12 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Leaf, FileText, Download, CheckCircle, Clock, AlertTriangle, Plus, Brain } from 'lucide-react';
+import { downloadReportForFile } from '@/lib/report-generator';
 
 function Navbar() {
     return (
         <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, padding: '0 32px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(7,15,10,0.92)', backdropFilter: 'blur(14px)', borderBottom: '1px solid rgba(74,222,128,0.1)' }}>
             <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-                <div style={{ width: 32, height: 32, borderRadius: 8, background: 'linear-gradient(135deg,#22c55e,#16a34a)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Leaf size={16} color="#052e16" /></div>
                 <span style={{ fontSize: 18, fontWeight: 800, background: 'linear-gradient(90deg,#86efac,#4ade80)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>FEDORA</span>
             </Link>
             <div style={{ display: 'flex', gap: 6 }}>
@@ -30,23 +30,7 @@ const reports = [
 ];
 
 function downloadSampleReport(name: string) {
-    const html = `<!DOCTYPE html><html><head><title>CBAM MRV Report - ${name}</title>
-<style>body{font-family:Arial;padding:40px;color:#1a1a1a;}h1{color:#15803d;}table{width:100%;border-collapse:collapse;}th,td{padding:10px;border:1px solid #dcfce7;text-align:left;}th{background:#f0fdf4;color:#166534;}</style></head>
-<body><h1>🌿 FEDORA — CBAM MRV Report</h1>
-<p><strong>File:</strong> ${name} | <strong>Date:</strong> ${new Date().toLocaleDateString('en-GB')} | <strong>Status:</strong> CBAM-Ready</p>
-<table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody>
-<tr><td>Embedded Carbon</td><td>62.4 kgCO₂e / unit</td></tr>
-<tr><td>Methodology</td><td>GHG Protocol + ASEAN EF DB v2.3</td></tr>
-<tr><td>CBAM Certificate Cost</td><td>€0.38 / unit</td></tr>
-<tr><td>Report Validity</td><td>Jan 2026 – Mar 2026</td></tr>
-</tbody></table>
-<p style="margin-top:32px;font-size:12px;color:#6b7280;">FEDORA · BU × Berkeley Climate Venture Competition · 2026<br>To save as PDF: File → Print → Save as PDF</p>
-</body></html>`;
-    const blob = new Blob([html], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = `fedora-cbam-${name.replace(/\.[^.]+$/, '')}.html`;
-    document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    downloadReportForFile(name);
 }
 
 export default function ReportsPage() {
@@ -62,7 +46,7 @@ export default function ReportsPage() {
                     <div>
                         <div className="badge" style={{ marginBottom: 10, display: 'inline-flex' }}><FileText size={11} /> Reports</div>
                         <h1 style={{ fontSize: 'clamp(24px,3vw,38px)', fontWeight: 800, color: '#e2fdf0', marginBottom: 4 }}>Generated Reports</h1>
-                        <p style={{ color: 'rgba(134,239,172,0.5)', fontSize: 14 }}>{reports.filter(r => r.status === 'Ready').length} ready · 1 processing · Nguyen Steel Co.</p>
+                        <p style={{ color: 'rgba(134,239,172,0.5)', fontSize: 14 }}>{reports.filter(r => r.status === 'Ready').length} ready · 1 processing · PT PLN (Persero)</p>
                     </div>
                     <Link href="/upload" style={{ padding: '12px 24px', background: 'linear-gradient(135deg,#22c55e,#16a34a)', color: '#052e16', borderRadius: 999, fontWeight: 700, fontSize: 14, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 6 }}>
                         <Plus size={16} /> New Analysis

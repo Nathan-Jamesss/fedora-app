@@ -130,7 +130,7 @@ export default function BatchAnalysisPage() {
         const html = `<!DOCTYPE html><html><head><title>Fedora Batch Analysis Report</title>
 <style>body{font-family:Arial;padding:40px;color:#1a1a1a;}h1{color:#15803d;}table{width:100%;border-collapse:collapse;margin-top:16px;}th,td{padding:10px;border:1px solid #dcfce7;text-align:left;}th{background:#f0fdf4;color:#166534;}</style>
 </head><body><h1>🌿 Fedora — Batch Analysis Report</h1>
-<p>Nguyen Steel Co. · ${files.length} months analysed · Generated: ${new Date().toLocaleDateString('en-GB')}</p>
+<p>PT PLN (Persero) · ${files.length} months analysed · Generated: ${new Date().toLocaleDateString('en-GB')}</p>
 <table><thead><tr><th>Month</th><th>File</th><th>Scope 1</th><th>Scope 2</th><th>Scope 3</th><th>Total (tCO₂e)</th></tr></thead><tbody>${rows}</tbody></table>
 <p style="margin-top:24px;font-size:12px;color:#6b7280;">FEDORA · To save as PDF: File → Print → Save as PDF</p></body></html>`;
         const blob = new Blob([html], { type: 'text/html' });

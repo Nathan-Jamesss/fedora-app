@@ -2,12 +2,12 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Leaf, Download, FileText, Brain, TrendingDown, ChevronDown, ChevronRight, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { generateAndDownloadReport } from '@/lib/report-generator';
 
 function Navbar() {
     return (
         <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, padding: '0 32px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(7,15,10,0.92)', backdropFilter: 'blur(14px)', borderBottom: '1px solid rgba(74,222,128,0.1)' }}>
             <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-                <div style={{ width: 32, height: 32, borderRadius: 8, background: 'linear-gradient(135deg,#22c55e,#16a34a)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Leaf size={16} color="#052e16" /></div>
                 <span style={{ fontSize: 18, fontWeight: 800, background: 'linear-gradient(90deg,#86efac,#4ade80)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>FEDORA</span>
             </Link>
             <div style={{ display: 'flex', gap: 6 }}>
@@ -51,102 +51,7 @@ const recommendations = [
     { priority: 'LOW', title: 'Optimize diesel generator scheduling', impact: '-45 tCO₂e/yr', saving: '€320/yr', effort: 'Low' },
 ];
 
-function generateAndDownloadReport() {
-    const now = new Date().toLocaleDateString('en-GB');
-    const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<title>Fedora Carbon Analysis Report</title>
-<style>
-  body{font-family:Arial,sans-serif;background:#fff;color:#1a1a1a;margin:0;padding:40px;}
-  h1{color:#15803d;font-size:28px;margin-bottom:4px;}
-  h2{color:#166534;font-size:18px;border-bottom:2px solid #dcfce7;padding-bottom:8px;margin-top:32px;}
-  .badge{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:700;}
-  .green{background:#dcfce7;color:#15803d;}
-  .orange{background:#fff7ed;color:#c2410c;}
-  .red{background:#fef2f2;color:#b91c1c;}
-  table{width:100%;border-collapse:collapse;margin-top:16px;font-size:13px;}
-  th{background:#f0fdf4;color:#166534;text-align:left;padding:10px 12px;border-bottom:2px solid #bbf7d0;}
-  td{padding:10px 12px;border-bottom:1px solid #f0fdf4;}
-  tr:hover td{background:#f0fdf4;}
-  .kpi{display:inline-block;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:16px 24px;margin:8px;min-width:140px;text-align:center;}
-  .kpi-val{font-size:28px;font-weight:900;color:#15803d;}
-  .kpi-lbl{font-size:11px;color:#4ade80;text-transform:uppercase;letter-spacing:0.06em;}
-  .rec{background:#f0fdf4;border-left:4px solid #22c55e;padding:12px 16px;margin:8px 0;border-radius:0 8px 8px 0;}
-  footer{margin-top:48px;padding-top:20px;border-top:1px solid #dcfce7;font-size:11px;color:#6b7280;}
-</style>
-</head>
-<body>
-<h1>🌿 FEDORA — Carbon Analysis Report</h1>
-<p style="color:#6b7280;font-size:13px;">Nguyen Steel Co. · Ho Chi Minh City, Vietnam · Generated: ${now}</p>
-<p style="color:#6b7280;font-size:13px;">Source: Invoice_Steel_Jan26.pdf · OCR Confidence: 94.2%</p>
 
-<div style="margin:24px 0;">
-  <div class="kpi"><div class="kpi-val">62.4</div><div class="kpi-lbl">kgCO₂e / unit</div></div>
-  <div class="kpi"><div class="kpi-val">€0.38</div><div class="kpi-lbl">CBAM cost / unit</div></div>
-  <div class="kpi"><div class="kpi-val">68</div><div class="kpi-lbl">Green Score / 100</div></div>
-  <div class="kpi"><div class="kpi-val">-3.2%</div><div class="kpi-lbl">vs last month</div></div>
-</div>
-
-<h2>1. Emission Breakdown by Source</h2>
-<table>
-  <thead><tr><th>Category</th><th>Scope</th><th>Emission Factor</th><th>Quantity</th><th>CO₂e (kg)</th><th>% of Total</th></tr></thead>
-  <tbody>
-    <tr><td>Electricity</td><td>Scope 2</td><td>0.4842 kgCO₂/kWh</td><td>4,200 kWh</td><td>2,033.6</td><td>32%</td></tr>
-    <tr><td>Steel Feedstock</td><td>Scope 3</td><td>1.85 tCO₂/t</td><td>12.4 t</td><td>2,294.0</td><td>37%</td></tr>
-    <tr><td>Natural Gas</td><td>Scope 1</td><td>2.04 kgCO₂/m³</td><td>820 m³</td><td>1,672.8</td><td>27%</td></tr>
-    <tr><td>Diesel</td><td>Scope 1</td><td>2.68 kgCO₂/L</td><td>180 L</td><td>482.4</td><td>8%</td></tr>
-    <tr><td>Process Water</td><td>Scope 3</td><td>0.42 kgCO₂/m³</td><td>280 m³</td><td>117.6</td><td>2%</td></tr>
-    <tr style="font-weight:700;background:#f0fdf4;"><td colspan="4">TOTAL</td><td>6,600.4</td><td>100%</td></tr>
-  </tbody>
-</table>
-
-<h2>2. CBAM Compliance Summary</h2>
-<table>
-  <thead><tr><th>Metric</th><th>Value</th></tr></thead>
-  <tbody>
-    <tr><td>Product</td><td>Steel Beam 40×40mm</td></tr>
-    <tr><td>CN Code</td><td>7308.90</td></tr>
-    <tr><td>Embedded Carbon (per unit)</td><td>62.4 kgCO₂e</td></tr>
-    <tr><td>EU ETS Carbon Price</td><td>€72.00 / tCO₂e</td></tr>
-    <tr><td>CBAM Certificate Cost (per unit)</td><td>€0.38</td></tr>
-    <tr><td>MRV Methodology</td><td>GHG Protocol + ASEAN Emission Factor DB v2.3</td></tr>
-    <tr><td>Report Validity</td><td>Jan 2026 – Mar 2026</td></tr>
-  </tbody>
-</table>
-
-<h2>3. AI Decarbonization Recommendations</h2>
-<div class="rec"><strong style="color:#15803d;">[HIGH PRIORITY]</strong> Switch to renewable energy tariff — saves 820 tCO₂e/yr, €2,400/yr</div>
-<div class="rec"><strong style="color:#15803d;">[HIGH PRIORITY]</strong> Source low-carbon steel from certified suppliers — saves 380 tCO₂e/yr, €1,100/yr</div>
-<div class="rec"><strong style="color:#77b73a;">[MEDIUM]</strong> Install on-site solar 200 kWp — saves 210 tCO₂e/yr, €6,200/yr</div>
-<div class="rec"><strong style="color:#aab73a;">[LOW]</strong> Optimize diesel generator scheduling — saves 45 tCO₂e/yr, €320/yr</div>
-
-<h2>4. Emission Factor Sources</h2>
-<table>
-  <thead><tr><th>Source</th><th>Factor</th><th>Database</th></tr></thead>
-  <tbody>
-    <tr><td>Vietnam national grid electricity</td><td>0.4842 kgCO₂/kWh</td><td>ASEAN EF DB v2.3 (2024)</td></tr>
-    <tr><td>Natural gas combustion</td><td>2.04 kgCO₂/m³</td><td>IPCC AR6 / Vietnam MOE</td></tr>
-    <tr><td>Diesel combustion</td><td>2.68 kgCO₂/L</td><td>IPCC AR6</td></tr>
-    <tr><td>Steel (basic oxygen furnace)</td><td>1.85 tCO₂/t</td><td>worldsteel 2024</td></tr>
-  </tbody>
-</table>
-
-<footer>
-  <p><strong>FEDORA</strong> · The Climate Operating System for ASEAN SMEs · fedora.app</p>
-  <p>BU × Berkeley Climate Venture Competition · 2026 · This report is generated using ASEAN-specific emission factors and GHG Protocol methodology.</p>
-  <p>To print as PDF: File → Print → Save as PDF in your browser.</p>
-</footer>
-</body>
-</html>`;
-    const blob = new Blob([html], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = `fedora-carbon-analysis-${Date.now()}.html`;
-    document.body.appendChild(a); a.click();
-    document.body.removeChild(a); URL.revokeObjectURL(url);
-}
 
 export default function AnalysisPage() {
     const [openRec, setOpenRec] = useState<string | null>(null);
@@ -160,10 +65,10 @@ export default function AnalysisPage() {
                     <div>
                         <div className="badge" style={{ marginBottom: 10, display: 'inline-flex' }}><Brain size={11} /> In-Depth Analysis</div>
                         <h1 style={{ fontSize: 'clamp(24px,3vw,38px)', fontWeight: 800, color: '#e2fdf0', marginBottom: 6 }}>Emission Analysis Report</h1>
-                        <p style={{ color: 'rgba(134,239,172,0.5)', fontSize: 14 }}>Invoice_Steel_Jan26.pdf · Nguyen Steel Co. · Jan 8, 2026 · OCR confidence: 94.2%</p>
+                        <p style={{ color: 'rgba(134,239,172,0.5)', fontSize: 14 }}>Invoice_Steel_Jan26.pdf · PT PLN (Persero) · Jan 8, 2026 · OCR confidence: 94.2%</p>
                     </div>
                     <button
-                        onClick={generateAndDownloadReport}
+                        onClick={() => generateAndDownloadReport()}
                         className="btn-primary"
                         style={{ padding: '14px 28px', fontSize: 14, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 4px 24px rgba(34,197,94,0.25)' }}>
                         <Download size={16} /> Download Full Report
@@ -301,7 +206,7 @@ export default function AnalysisPage() {
                         <div style={{ fontSize: 13, color: 'rgba(134,239,172,0.5)' }}>Export-ready MRV document for your EU importer in one click.</div>
                     </div>
                     <div style={{ display: 'flex', gap: 10 }}>
-                        <button onClick={generateAndDownloadReport} className="btn-primary" style={{ padding: '12px 24px', fontSize: 14 }}>
+                        <button onClick={() => generateAndDownloadReport()} className="btn-primary" style={{ padding: '12px 24px', fontSize: 14 }}>
                             <Download size={15} /> Download Full Analysis
                         </button>
                         <Link href="/reports" style={{ padding: '12px 24px', border: '1px solid rgba(74,222,128,0.25)', color: '#86efac', borderRadius: 999, fontSize: 14, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 6 }}>

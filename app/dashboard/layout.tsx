@@ -29,14 +29,11 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 overflowY: 'auto',
             }}>
                 {/* Logo */}
-                <div style={{ padding: '20px 20px 16px', borderBottom: '1px solid rgba(74,222,128,0.08)' }}>
-                    <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 9, textDecoration: 'none' }}>
-                        <div style={{ width: 30, height: 30, borderRadius: 8, background: 'linear-gradient(135deg,#22c55e,#16a34a)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 12px rgba(34,197,94,0.3)', flexShrink: 0 }}>
-                            <Leaf size={14} color="#052e16" />
-                        </div>
-                        <span style={{ fontSize: 15, fontWeight: 900, letterSpacing: '-0.02em', background: 'linear-gradient(90deg,#86efac,#4ade80)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>FEDORA</span>
+                <div style={{ padding: '22px 20px 18px', borderBottom: '1px solid rgba(74,222,128,0.08)' }}>
+                    <Link href="/" style={{ textDecoration: 'none' }}>
+                        <span style={{ fontSize: 18, fontWeight: 900, letterSpacing: '-0.02em', background: 'linear-gradient(90deg,#86efac,#4ade80)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>FEDORA</span>
                     </Link>
-                    <p style={{ fontSize: 10, color: 'rgba(134,239,172,0.3)', marginTop: 6, lineHeight: 1.4 }}>Climate OS · Nguyen Steel Co.</p>
+                    <p style={{ fontSize: 10, color: 'rgba(134,239,172,0.3)', marginTop: 8, lineHeight: 1.4 }}>Climate OS · PT PLN (Persero)</p>
                 </div>
 
                 {/* Nav items */}

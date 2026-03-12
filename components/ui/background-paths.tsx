@@ -1,36 +1,32 @@
 "use client";
-import { motion } from "framer-motion";
 
+// Smooth flowing lines — pure CSS, no JS per frame
 function FloatingPaths({ position }: { position: number }) {
-    const paths = Array.from({ length: 36 }, (_, i) => ({
+    const paths = Array.from({ length: 8 }, (_, i) => ({
         id: i,
-        d: `M-${380 - i * 5 * position} -${189 + i * 6}C-${380 - i * 5 * position} -${189 + i * 6} -${312 - i * 5 * position} ${216 - i * 6} ${152 - i * 5 * position} ${343 - i * 6}C${616 - i * 5 * position} ${470 - i * 6} ${684 - i * 5 * position} ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`,
-        width: 0.5 + i * 0.03,
-        opacity: 0.04 + i * 0.012,
+        d: `M-${380 - i * 22 * position} -${189 + i * 24}C-${380 - i * 22 * position} -${189 + i * 24} -${312 - i * 22 * position} ${216 - i * 24} ${152 - i * 22 * position} ${343 - i * 24}C${616 - i * 22 * position} ${470 - i * 24} ${684 - i * 22 * position} ${875 - i * 24} ${684 - i * 22 * position} ${875 - i * 24}`,
+        opacity: 0.06 + i * 0.025,
+        width: 0.6 + i * 0.08,
+        dur: 30 + i * 5,
+        delay: i * 3,
     }));
 
     return (
         <div className="absolute inset-0 pointer-events-none">
             <svg className="w-full h-full" viewBox="0 0 696 316" fill="none" preserveAspectRatio="xMidYMid slice">
-                <title>Nature Paths</title>
-                {paths.map((path) => (
-                    <motion.path
-                        key={path.id}
-                        d={path.d}
+                <title>Background Paths</title>
+                {paths.map((p) => (
+                    <path
+                        key={p.id}
+                        d={p.d}
                         stroke="#22c55e"
-                        strokeWidth={path.width}
-                        strokeOpacity={path.opacity}
-                        initial={{ pathLength: 0, opacity: 0 }}
-                        animate={{
-                            pathLength: [0, 1, 0],
-                            opacity: [0, path.opacity * 3, 0],
-                            pathOffset: [0, 0.5, 1],
-                        }}
-                        transition={{
-                            duration: 18 + (path.id % 7) * 3,
-                            repeat: Infinity,
-                            ease: "linear",
-                            delay: path.id * 0.3,
+                        strokeWidth={p.width}
+                        strokeOpacity={p.opacity}
+                        strokeDasharray="1600"
+                        strokeDashoffset="1600"
+                        style={{
+                            animation: `flowLine ${p.dur}s ease-in-out infinite`,
+                            animationDelay: `${p.delay}s`,
                         }}
                     />
                 ))}
@@ -44,6 +40,16 @@ export function BackgroundPaths() {
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <FloatingPaths position={1} />
             <FloatingPaths position={-1} />
+            <style dangerouslySetInnerHTML={{
+                __html: `
+        @keyframes flowLine {
+          0%   { stroke-dashoffset: 1600; opacity: 0; }
+          5%   { opacity: 0.4; }
+          50%  { stroke-dashoffset: 0; opacity: 1; }
+          95%  { opacity: 0.4; }
+          100% { stroke-dashoffset: -1600; opacity: 0; }
+        }
+      `}} />
         </div>
     );
 }

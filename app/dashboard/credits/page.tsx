@@ -5,7 +5,7 @@ import { Award, Leaf, TrendingUp, Gift, CheckCircle, Lock } from 'lucide-react';
 const leaderboard = [
     { rank: 1, name: 'Hanoi Metals Ltd', country: '🇻🇳', credits: 2840, tier: 'Platinum', change: +120 },
     { rank: 2, name: 'Thai Steel Works', country: '🇹🇭', credits: 2210, tier: 'Gold', change: +88 },
-    { rank: 3, name: 'YOU — Nguyen Steel', country: '🇻🇳', credits: 1560, tier: 'Silver', change: +64, you: true },
+    { rank: 3, name: 'YOU — PT PLN (Persero)', country: '🇮🇩', credits: 1560, tier: 'Silver', change: +64, you: true },
     { rank: 4, name: 'Jakarta Iron Co.', country: '🇮🇩', credits: 980, tier: 'Bronze', change: +32 },
     { rank: 5, name: 'KL Aluminium Bhd', country: '🇲🇾', credits: 740, tier: 'Bronze', change: +18 },
     { rank: 6, name: 'Cebu Metals Corp', country: '🇵🇭', credits: 340, tier: 'Member', change: +8 },

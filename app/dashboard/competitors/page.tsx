@@ -4,7 +4,7 @@ import { Users, TrendingDown, TrendingUp, Award } from 'lucide-react';
 const competitors = [
     { rank: 1, name: 'Hanoi Metals Ltd', country: '🇻🇳', score: 84, total: 612, s1: 122, s2: 310, s3: 180, cbam: '€0.29', badge: 'Sector Leader' },
     { rank: 2, name: 'Thai Steel Works', country: '🇹🇭', score: 78, total: 668, s1: 134, s2: 335, s3: 199, cbam: '€0.32', badge: null },
-    { rank: 3, name: 'YOU — Nguyen Steel', country: '🇻🇳', score: 68, total: 796, s1: 158, s2: 378, s3: 260, cbam: '€0.38', badge: 'Your Company', you: true },
+    { rank: 3, name: 'YOU — PT PLN (Persero)', country: '🇮🇩', score: 68, total: 796, s1: 158, s2: 378, s3: 260, cbam: '€0.38', badge: 'Your Company', you: true },
     { rank: 4, name: 'Jakarta Iron Co.', country: '🇮🇩', score: 61, total: 924, s1: 188, s2: 450, s3: 286, cbam: '€0.44', badge: null },
     { rank: 5, name: 'KL Aluminium Bhd', country: '🇲🇾', score: 58, total: 990, s1: 200, s2: 480, s3: 310, cbam: '€0.47', badge: null },
     { rank: 6, name: 'Cebu Metals Corp', country: '🇵🇭', score: 52, total: 1120, s1: 226, s2: 540, s3: 354, cbam: '€0.54', badge: null },
